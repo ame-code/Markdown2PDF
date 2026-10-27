@@ -1,0 +1,46 @@
+{
+  "cm/codemirror5.js": {
+    "bytes": 162545,
+    "sha256": "fc16183c30d76cb550e7fa00ae6ad7c3ac9708eddae527e9555a65ae7920407b"
+  },
+  "cm/active-line.js": {
+    "bytes": 1929,
+    "sha256": "d1c917d28f0e661e2cf28e9bbe080d368fbb4ab5cbabd00aaaf9edabd23ae8e5"
+  },
+  "cm/tw-lang-mode.js": {
+    "bytes": 7518,
+    "sha256": "35771ae4c202dca46d0befee12bb260eee5b8c5f835571af875463575569f4e5"
+  },
+  "cm/mode.min.js": {
+    "bytes": 566433,
+    "sha256": "9028a8e0f5f939350661473750658b45cbfe63f85d939d0962034ee56767858a"
+  },
+  "style/typora-codemirror.css": {
+    "bytes": 4607,
+    "sha256": "e916cf9ee64e3280e62b0806e4fd779b69d08e0ee91bb147787dd34c45e3f8b6"
+  },
+  "style/typora-base-control-subset.css": {
+    "bytes": 133,
+    "sha256": "40bea38e9e831de8925237af01cd86a4713ee117e940bf1545b56c8d401f0462"
+  },
+  "style/typora-base.css": {
+    "bytes": 13386,
+    "sha256": "6ed7838b51c2e5f70dc6daf475560a2b1ad5ea5496deb9c1cf5322e7c31ef45e"
+  },
+  "style/user-theme-metrics.css": {
+    "bytes": 2297,
+    "sha256": "bdd770d0e65b74b539d6532270fb6be107e48ba42a1369aaf669524d0974048b"
+  },
+  "cm/typora-globals.js": {
+    "bytes": 1377,
+    "sha256": "5397c8cecb86db47918376ffeeb49d95e6aca9e9f96b59c50de149631be67654"
+  },
+  "_source": {
+    "frameJs": {
+      "path": "D:\\Typora\\resources\\appsrc\\window\\frame.js",
+      "bytes": 1641581,
+      "sha256": "1b698f43e78a29d7c4fb29de724befb984f26fe14a883ab0e283ad7c8f0ee4ba"
+    },
+    "libAsar": "D:\\Typora\\resources\\lib.asar"
+  }
+}

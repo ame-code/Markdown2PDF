@@ -1,0 +1,46 @@
+{
+  "name": "markdown2pdf",
+  "version": "0.1.0",
+  "description": "Standalone Markdown to PDF renderer reproducing Typora 1.9.5 print export with the my theme",
+  "main": "electron/main.cjs",
+  "directories": {
+    "test": "test"
+  },
+  "bin": {
+    "md2pdf": "bin/md2pdf.js"
+  },
+  "scripts": {
+    "build:golden": "node bin/md2pdf.js golden/typora-export-test.md -o out/acceptance.pdf --footer \"No. ${pageNo} / ${totalPages}\" --author 一苇",
+    "acceptance": "node tools/acceptance.mjs",
+    "parity": "node tools/parity.mjs",
+    "verify:fence": "node src/fence/verify.js",
+    "verify:math": "node src/math/verify.js",
+    "build:toc": "node bin/md2pdf.js test/toc.md -o out/toc.pdf --footer \"No. ${pageNo} / ${totalPages}\" --title 目录页码测试",
+    "test:toc": "npm run -s build:toc && python tools/toc_check.py out/toc.pdf",
+    "css:audit": "node bin/md2pdf.js test/features.md -o out/_css-audit.pdf --html out/audit.html --quiet && node bin/md2pdf.js test/toc.md -o out/_css-audit.pdf --html out/audit-toc.html --quiet && node bin/md2pdf.js test/large.md -o out/_css-audit.pdf --html out/audit-large.html --quiet && node bin/md2pdf.js test/fence.md -o out/_css-audit.pdf --html out/audit-fence.html --quiet && node bin/md2pdf.js golden/typora-export-test.md -o out/_css-audit.pdf --html out/audit-corpus.html --quiet && node tools/css-audit.mjs out/audit.html out/audit-toc.html out/audit-large.html out/audit-fence.html out/audit-corpus.html --json out/css-audit.json",
+    "css:build": "node tools/build-css.mjs",
+    "test": "node src/fence/verify.js && node src/math/verify.js && node tools/parity.mjs && node tools/acceptance.mjs && node bin/md2pdf.js test/toc.md -o out/toc.pdf --footer \"No. ${pageNo} / ${totalPages}\" --title 目录页码测试 --quiet && python tools/toc_check.py out/toc.pdf",
+    "electron:build": "node bin/md2pdf.js golden/typora-export-test.md -o out/electron-acceptance.pdf --footer \"No. ${pageNo} / ${totalPages}\" --author 一苇",
+    "electron:start": "electron .",
+    "pack": "node tools/pack.mjs",
+    "verify:dist": "node tools/acceptance.mjs --out out/dist-p1.pdf && python tools/toc_check.py out/dist-p2.pdf"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "module",
+  "dependencies": {
+    "markdown-it": "^15.0.3",
+    "markdown-it-footnote": "^4.0.0",
+    "markdown-it-mark": "^4.0.0",
+    "markdown-it-sub": "^2.0.0",
+    "markdown-it-sup": "^2.0.0",
+    "markdown-it-task-lists": "^2.1.1",
+    "pdf-lib": "^1.17.1",
+    "puppeteer-core": "^22.15.0"
+  },
+  "devDependencies": {
+    "@electron/packager": "^20.3.0",
+    "electron": "^30.0.9"
+  }
+}

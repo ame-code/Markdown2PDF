@@ -1,0 +1,10 @@
+* text=auto
+
+# 二进制：不要让 git 试图做换行/文本归一
+*.pdf binary
+*.png binary
+*.woff2 binary
+*.ttf binary
+*.lnk binary
+*.pak binary
+*.exe binary

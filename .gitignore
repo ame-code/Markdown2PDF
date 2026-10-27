@@ -1,0 +1,17 @@
+# 构建产物
+/dist/
+/out/
+
+# 本机 Chromium 124 副本（277 MB，CLI 用；独立可执行版用 Electron 自带引擎）
+/runtime/
+
+# 依赖
+/node_modules/
+
+# 系统垃圾
+Thumbs.db
+desktop.ini
+.DS_Store
+
+# 日志与临时文件
+*.log

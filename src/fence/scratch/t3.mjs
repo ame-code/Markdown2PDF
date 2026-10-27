@@ -1,0 +1,15 @@
+﻿import { renderFence } from '../index.js';
+const REF = process.env.REF || 'E:\\work\\reverse\\reverse-typora-export\\evidence\\real-export-html-MATH.html';
+import fs from 'node:fs';
+const src = fs.readFileSync(REF, 'utf8');
+const start = src.indexOf('<pre class="md-fences');
+const end = src.indexOf('</pre>', src.indexOf('</div></div></pre>') - 400);
+const ref = src.slice(start, src.indexOf('</pre>', start + 10) + 6);
+const html = await renderFence('#include <bits/stdc++.h>\nint main() { return 0; }', 'cpp');
+console.log('ref len', ref.length, 'ours', html.length, 'equal', ref === html);
+let i = 0; while (i < Math.min(ref.length, html.length) && ref[i] === html[i]) i++;
+console.log('first diff at', i);
+console.log('ref :', JSON.stringify(ref.slice(Math.max(0,i-80), i+120)));
+console.log('ours:', JSON.stringify(html.slice(Math.max(0,i-80), i+120)));
+fs.writeFileSync('src/fence/scratch/ref-fence.txt', ref, 'utf8');
+fs.writeFileSync('src/fence/scratch/our-fence.txt', html, 'utf8');

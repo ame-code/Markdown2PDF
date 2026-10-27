@@ -1,0 +1,246 @@
+/* vendor/style/code.css — 围栏代码块（CodeMirror 5）的打印皮肤
+ *
+ * 同 doc.css：由 tools/build-css.mjs 从实测命中清单生成，只保留在打印 DOM 里
+ * 真正匹配到元素的 31 条规则（原文件 77 条）。选择器属于 CodeMirror 的公共
+ * 类名契约；语法着色的取值来自 Typora 的编辑器主题参数（这些值是配色事实，
+ * 不改变就不是同一个外观）。组织与注释为本项目自有。
+ */
+
+/* ==========================================================================
+ * 编辑器外框与滚动容器
+ * ========================================================================== */
+
+.CodeMirror {
+  height: auto;
+}
+
+/* ==========================================================================
+ * 语法着色
+ * ========================================================================== */
+
+.CodeMirror.cm-s-inner {
+  background: inherit;
+}
+
+/* ==========================================================================
+ * 编辑器外框与滚动容器
+ * ========================================================================== */
+
+.CodeMirror-scroll {
+  overflow: auto hidden;
+  z-index: 3;
+}
+
+.CodeMirror-gutter-filler,
+.CodeMirror-scrollbar-filler {
+  background-color: rgb(255, 255, 255);
+}
+
+.CodeMirror-gutters {
+  border-right: 1px solid rgb(221, 221, 221);
+  background: inherit;
+  white-space: nowrap;
+}
+
+/* ==========================================================================
+ * 语法着色
+ * ========================================================================== */
+
+.cm-s-inner .cm-keyword {
+  color: rgb(119, 0, 136);
+}
+
+.cm-s-inner .cm-number {
+  color: rgb(17, 102, 68);
+}
+
+.cm-s-inner .cm-def {
+  color: rgb(0, 0, 255);
+}
+
+.cm-s-inner .cm-variable {
+  color: rgb(0, 0, 0);
+}
+
+.cm-s-inner .cm-variable-2 {
+  color: rgb(0, 85, 170);
+}
+
+.cm-s-inner .cm-variable-3 {
+  color: rgb(0, 136, 85);
+}
+
+.cm-s-inner .cm-operator {
+  color: rgb(152, 26, 26);
+}
+
+.cm-s-inner .cm-string-2 {
+  color: rgb(255, 85, 0);
+}
+
+.cm-s-inner .cm-meta {
+  color: rgb(85, 85, 85);
+}
+
+/* ==========================================================================
+ * 光标与选区
+ * ========================================================================== */
+
+.cm-s-inner .CodeMirror-activeline-background {
+  background: inherit;
+}
+
+/* ==========================================================================
+ * 编辑器外框与滚动容器
+ * ========================================================================== */
+
+.CodeMirror {
+  position: relative;
+  overflow: hidden;
+}
+
+.CodeMirror-scroll {
+  height: 100%;
+  outline: 0px;
+  position: relative;
+  box-sizing: content-box;
+  background: inherit;
+}
+
+.CodeMirror-sizer {
+  position: relative;
+}
+
+.CodeMirror-gutter-filler,
+.CodeMirror-hscrollbar,
+.CodeMirror-scrollbar-filler,
+.CodeMirror-vscrollbar {
+  position: absolute;
+  z-index: 6;
+  display: none;
+  outline: 0px;
+}
+
+.CodeMirror-scrollbar-filler {
+  right: 0px;
+  bottom: 0px;
+}
+
+/* ==========================================================================
+ * 其他
+ * ========================================================================== */
+
+.CodeMirror-gutter-filler {
+  left: 0px;
+  bottom: 0px;
+}
+
+/* ==========================================================================
+ * 编辑器外框与滚动容器
+ * ========================================================================== */
+
+.CodeMirror-gutters {
+  position: absolute;
+  left: 0px;
+  top: 0px;
+  padding-bottom: 10px;
+  z-index: 3;
+  overflow-y: hidden;
+}
+
+/* ==========================================================================
+ * 其他
+ * ========================================================================== */
+
+.CodeMirror-gutter-background {
+  position: absolute;
+  top: 0px;
+  bottom: 0px;
+  z-index: 4;
+}
+
+/* ==========================================================================
+ * 编辑器外框与滚动容器
+ * ========================================================================== */
+
+.CodeMirror-lines {
+  cursor: text;
+}
+
+/* ==========================================================================
+ * 其他
+ * ========================================================================== */
+
+.CodeMirror pre {
+  border-radius: 0px;
+  border-width: 0px;
+  background: 0px 0px;
+  font-family: inherit;
+  font-size: inherit;
+  margin: 0px;
+  white-space: pre;
+  overflow-wrap: normal;
+  color: inherit;
+  z-index: 2;
+  position: relative;
+  overflow: visible;
+}
+
+/* ==========================================================================
+ * 编辑器外框与滚动容器
+ * ========================================================================== */
+
+.CodeMirror-wrap pre {
+  overflow-wrap: break-word;
+  white-space: pre-wrap;
+  word-break: normal;
+}
+
+.CodeMirror-code pre {
+  border-right: 30px solid transparent;
+  width: fit-content;
+}
+
+.CodeMirror-wrap .CodeMirror-code pre {
+  border-right: none;
+  width: auto;
+}
+
+/* ==========================================================================
+ * 其他
+ * ========================================================================== */
+
+.CodeMirror-linebackground {
+  position: absolute;
+  inset: 0px;
+  z-index: 0;
+}
+
+/* ==========================================================================
+ * 编辑器外框与滚动容器
+ * ========================================================================== */
+
+.CodeMirror-wrap .CodeMirror-scroll {
+  overflow-x: hidden;
+}
+
+/* ==========================================================================
+ * 其他
+ * ========================================================================== */
+
+.CodeMirror-measure {
+  position: absolute;
+  width: 100%;
+  height: 0px;
+  overflow: hidden;
+  visibility: hidden;
+}
+
+/* ==========================================================================
+ * 打印时不需要的编辑器装饰
+ * ========================================================================== */
+
+/* 围栏里的滚动条在打印时不该占位（编辑器态才会出现）。 */
+.cm-s-inner .CodeMirror-vscrollbar {
+  display: none !important;
+}

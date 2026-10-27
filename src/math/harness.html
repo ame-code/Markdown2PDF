@@ -1,0 +1,19 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<!-- Replica of D:\Typora\resources\window.html (MathJax part only).
+     Load order matches Typora: the window.html inline config script first,
+     then the vendored lib.asar -> lib/MathJax3/es5/tex-svg-full.js bundle.
+     __MATHJAX_BUNDLE_URL__ is substituted by core.cjs at runtime. -->
+<script src="typora-mathjax-config.js"></script>
+<script src="__MATHJAX_BUNDLE_URL__"></script>
+</head>
+<body>
+<!-- Typora measures MathJax metrics from `#write > p` (first paragraph of the
+     editor, see frame.js ~1172450) and passes that metrics object to every
+     display-math conversion. Keep a paragraph here so getMetricsFor() sees the
+     same font-size / line context. -->
+<div id="write"><p>x</p></div>
+</body>
+</html>

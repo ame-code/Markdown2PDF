@@ -1,0 +1,26 @@
+﻿import fs from 'node:fs';
+import { FENCE_SCRIPTS, FENCE_INPAGE, mountFenceAssets, CHROMIUM_CANDIDATES } from '../index.js';
+const puppeteer = (await import('puppeteer-core')).default;
+const CSS = mountFenceAssets().css;
+const browser = await puppeteer.launch({ executablePath: CHROMIUM_CANDIDATES.find(p=>fs.existsSync(p)), headless:'new', args:['--no-sandbox','--force-device-scale-factor=1.25'] });
+const page = await browser.newPage();
+await page.setContent(`<!DOCTYPE html><html><head><style>${CSS}</style></head><body class="typora-export typora-print os-windows"><div class="typora-export-content"><div id="write" style="top:auto" class="is-node"></div></div></body></html>`, {waitUntil:'load'});
+for (const f of FENCE_SCRIPTS) await page.addScriptTag({ content: fs.readFileSync(f,'utf8') });
+await page.addScriptTag({ content: FENCE_INPAGE });
+const out = await page.evaluate(() => {
+  const host = document.getElementById('write');
+  const pre = document.createElement('pre');
+  pre.className = 'md-fences md-end-block ty-contain-cm';
+  pre.setAttribute('spellcheck','false'); pre.setAttribute('lang','cpp');
+  host.appendChild(pre);
+  const cm = CodeMirror(pre, { value:'int main() { return 0; }', theme:' inner null-scroll', lineWrapping:true, styleActiveLine:true, mode:'text/x-c++src', viewportMargin: Infinity, maxHighlightLength: Infinity });
+  const ta = pre.querySelector('textarea');
+  const live = ta.outerHTML;
+  const w = pre.querySelector('.CodeMirror');
+  pre.innerHTML = w.outerHTML;
+  const reparsed = pre.querySelector('textarea').outerHTML;
+  const finalOuter = pre.querySelector('textarea').outerHTML;
+  return { live, reparsed, finalOuter, attrsLive: Array.from(ta.attributes).map(a=>a.name).join(','), attrsParsed: Array.from(pre.querySelector('textarea').attributes).map(a=>a.name).join(',') };
+});
+console.log(JSON.stringify(out, null, 1));
+await browser.close();

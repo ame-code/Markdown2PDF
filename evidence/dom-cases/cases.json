@@ -1,0 +1,198 @@
+[
+ {
+  "id": "heading.h1-anchor",
+  "markdown": "# Heading 1",
+  "expectedHtml": "<h1><a name=\"header-n0\" class=\"md-header-anchor md-print-anchor\" href=\"af://n0\"> </a><span>Heading 1</span></h1>",
+  "source": "artifact",
+  "notes": "Print mode heading: anchor element first, no id attribute. cid n0 in this document (numbering UNKNOWN, dom-spec.md 1.4)."
+ },
+ {
+  "id": "heading.h2-anchor",
+  "markdown": "## Heading 2",
+  "expectedHtml": "<h2><a name=\"header-n2\" class=\"md-header-anchor md-print-anchor\" href=\"af://n2\"> </a><span>Heading 2</span></h2>",
+  "source": "artifact",
+  "notes": "cid n2 in the source document; node numbering is UNKNOWN (dom-spec.md 1.4)."
+ },
+ {
+  "id": "paragraph.inline-mix",
+  "markdown": "普通段落，包含 **粗体**、*斜体*、`inline code`、[链接](https://example.com)。",
+  "expectedHtml": "<p><span>普通段落，包含 </span><strong><span>粗体</span></strong><span>、</span><em><span>斜体</span></em><span>、</span><code>inline code</code><span>、</span><a href='https://example.com'><span>链接</span></a><span>。</span></p>",
+  "source": "artifact",
+  "notes": "Plain text runs are span-wrapped; code span has no inner span; link href uses single quotes."
+ },
+ {
+  "id": "blockquote.two-lines",
+  "markdown": "> blockquote 引用\n> 第二行",
+  "expectedHtml": "<blockquote><p><span>blockquote 引用</span>\n<span>第二行</span></p></blockquote>",
+  "source": "artifact",
+  "notes": "The newline inside <p> is the softbreak token, emitted literally as \"\\n\"."
+ },
+ {
+  "id": "list.ul-tight",
+  "markdown": "- list\n- list\n- list",
+  "expectedHtml": "<ul><li><p><span>list</span></p></li><li><p><span>list</span></p></li><li><p><span>list</span></p></li></ul>",
+  "source": "artifact",
+  "notes": "Print mode keeps <p> inside tight list items."
+ },
+ {
+  "id": "list.ol-start-empty",
+  "markdown": "1. ordered\n2. ordered",
+  "expectedHtml": "<ol start='' ><li><p><span>ordered</span></p></li><li><p><span>ordered</span></p></li></ol>",
+  "source": "artifact",
+  "notes": "An empty model start emits \" start='' \" (space before the closing >)."
+ },
+ {
+  "id": "table.basic",
+  "markdown": "| A | B |\n|---|---|\n| 1 | 2 |",
+  "expectedHtml": "<figure class='table-figure'><table><thead><tr><th><span>A</span></th><th><span>B</span></th></tr></thead><tbody><tr><td><span>1</span></td><td><span>2</span></td></tr></tbody></table></figure>",
+  "source": "artifact",
+  "notes": "First row becomes thead/th, remaining rows tbody/td; no colgroup."
+ },
+ {
+  "id": "hr",
+  "markdown": "---",
+  "expectedHtml": "<hr />",
+  "source": "artifact",
+  "notes": "Space before /> is real."
+ },
+ {
+  "id": "image.block",
+  "markdown": "![image](typora-export-test-image.png)",
+  "expectedHtml": "<p><img src=\"file://E:/code/reverse-typora-export/test/typora-export-test-image.png?lastModify=1791301838282\" referrerpolicy=\"no-referrer\" alt=\"image\"></p>",
+  "source": "artifact",
+  "notes": "src is machine-specific: file:// + path with forward slashes + ?lastModify=<ms>. DOM-serialized, so double quotes and lowercase referrerpolicy, no self-closing slash."
+ },
+ {
+  "id": "paragraph.empty",
+  "markdown": "",
+  "expectedHtml": "<p>&nbsp;</p>",
+  "source": "code-derived",
+  "notes": "Empty inline content becomes &nbsp; (frame.js:701930)."
+ },
+ {
+  "id": "inline.code-span",
+  "markdown": "`a-b;c`",
+  "expectedHtml": "<p><code>a-b;c</code></p>",
+  "source": "code-derived",
+  "notes": "Code span text is trimmed, escaped and split on /([-;]+)/ then re-joined; no span inside."
+ },
+ {
+  "id": "inline.strong-em",
+  "markdown": "**b** *i*",
+  "expectedHtml": "<p><strong><span>b</span></strong><span> </span><em><span>i</span></em></p>",
+  "source": "code-derived",
+  "notes": "The whitespace run between tokens gets its own span."
+ },
+ {
+  "id": "inline.mark-sub-sup-u-del",
+  "markdown": "==m== ~s~ ^p^ ++u++ ~~d~~",
+  "expectedHtml": "<p><mark><span>m</span></mark><span> </span><sub><span>s</span></sub><span> </span><sup><span>p</span></sup><span> </span><u><span>u</span></u><span> </span><del><span>d</span></del></p>",
+  "source": "code-derived",
+  "notes": "highlight/sub/sup/underline/del wrappers; inner content keeps its span."
+ },
+ {
+  "id": "inline.escaping",
+  "markdown": "a & b < c > d \" e ' f",
+  "expectedHtml": "<p><span>a &amp; b &lt; c &gt; d &quot; e &#39; f</span></p>",
+  "source": "code-derived",
+  "notes": "escape() maps & < > \" ' to entities inside text content (frame.js:1517380)."
+ },
+ {
+  "id": "inline.hardbreak",
+  "markdown": "line1  \nline2",
+  "expectedHtml": "<p><span>line1</span><br/><span>line2</span></p>",
+  "source": "code-derived",
+  "notes": "Hard break renders <br/> (no space), unlike <hr />."
+ },
+ {
+  "id": "inline.emoji",
+  "markdown": ":smile:",
+  "expectedHtml": "<p>😄</p>",
+  "source": "code-derived",
+  "notes": "Emoji token returns the raw character (no span) unless monocolorEmoji is on."
+ },
+ {
+  "id": "link.external",
+  "markdown": "[x](https://example.com/?a=1&b=2)",
+  "expectedHtml": "<p><a href='https://example.com/?a=1&amp;b=2'><span>x</span></a></p>",
+  "source": "code-derived",
+  "notes": "href passes through escapeForPreWrap, so & becomes &amp;."
+ },
+ {
+  "id": "link.internal",
+  "markdown": "# Target\n\n[jump](#target)",
+  "expectedHtml": "<p><a href='#header-n0'><span>jump</span></a></p>",
+  "source": "code-derived",
+  "notes": "Print mode rewrites #anchor to #header-<cid>; cid placeholder n0."
+ },
+ {
+  "id": "list.task",
+  "markdown": "- [ ] a\n- [x] b",
+  "expectedHtml": "<ul><li class='md-task-list-item task-list-item task-list-not-done' ><input type='checkbox' /><p><span>a</span></p></li><li class='md-task-list-item task-list-item task-list-done' ><input type='checkbox' checked/><p><span>b</span></p></li></ul>",
+  "source": "code-derived",
+  "notes": "Trailing space after the class value; no space before /> when checked (frame.js:703500)."
+ },
+ {
+  "id": "list.nested-ul",
+  "markdown": "- a\n  - b",
+  "expectedHtml": "<ul><li><p><span>a</span></p><ul><li><p><span>b</span></p></li></ul></li></ul>",
+  "source": "code-derived",
+  "notes": "The child list sits inside the parent <li>, after its paragraph."
+ },
+ {
+  "id": "list.loose",
+  "markdown": "- a\n\n- b",
+  "expectedHtml": "<ul><li><p><span>a</span></p></li><li><p><span>b</span></p></li></ul>",
+  "source": "code-derived",
+  "notes": "In print mode loose and tight lists render identically (the unwrap only happens with noStyle)."
+ },
+ {
+  "id": "list.ol-start-3",
+  "markdown": "3. a\n4. b",
+  "expectedHtml": "<ol start='3' ><li><p><span>a</span></p></li><li><p><span>b</span></p></li></ol>",
+  "source": "code-derived",
+  "notes": "A numeric start other than 1 keeps the attribute, with the trailing space."
+ },
+ {
+  "id": "table.align",
+  "markdown": "| A | B |\n|:--|--:|\n| 1 | 2 |",
+  "expectedHtml": "<figure class='table-figure'><table><thead><tr><th style='text-align:left;' ><span>A</span></th><th style='text-align:right;' ><span>B</span></th></tr></thead><tbody><tr><td style='text-align:left;' ><span>1</span></td><td style='text-align:right;' ><span>2</span></td></tr></tbody></table></figure>",
+  "source": "code-derived",
+  "notes": "Attribute text is \"] style='text-align:\"+align+\";' [\"] i.e. value = \"text-align:left;\" and one space after the closing quote, before >. Applied to th and td."
+ },
+ {
+  "id": "table.empty-cell",
+  "markdown": "| A | B |\n|---|---|\n| | 2 |",
+  "expectedHtml": "<figure class='table-figure'><table><thead><tr><th><span>A</span></th><th><span>B</span></th></tr></thead><tbody><tr><td>&nbsp;</td><td><span>2</span></td></tr></tbody></table></figure>",
+  "source": "code-derived",
+  "notes": "Empty cell content becomes &nbsp;."
+ },
+ {
+  "id": "heading.h1-breakpage",
+  "markdown": "# One\n\npara\n\n# Two",
+  "expectedHtml": "<h1 data-breakpage><a name=\"header-n4\" class=\"md-header-anchor md-print-anchor\" href=\"af://n4\"> </a><span>Two</span></h1>",
+  "source": "code-derived",
+  "notes": "Every non-first top-level h1 gets data-breakpage in print mode (frame.js:702820)."
+ },
+ {
+  "id": "footnote.ref",
+  "markdown": "text[^1]\n\n[^1]: note",
+  "expectedHtml": "<p><span>text</span><sup class='md-footnote'><a href='#dfref-footnote-1' name='ref-footnote-1'>1</a></sup></p>",
+  "source": "code-derived",
+  "notes": "The footnotes area is appended after every block: <div class='footnotes-area' data-breakpage ><hr/><div class='footnote-line'><span class='md-fn-count'>1</span> ... <a name='dfref-footnote-1' href='#ref-footnote-1' title='back to document' class='reversefootnote' >↩</a></div></div>"
+ },
+ {
+  "id": "yaml.meta-dropped",
+  "markdown": "---\ntitle: t\n---\n\npara",
+  "expectedHtml": "<p><span>para</span></p>",
+  "source": "code-derived",
+  "notes": "meta_block exports as the empty string: YAML front matter disappears."
+ },
+ {
+  "id": "html.block-passthrough",
+  "markdown": "<div class=\"note\">hi</div>",
+  "expectedHtml": "<div class=\"note\">hi</div>",
+  "source": "code-derived",
+  "notes": "Raw HTML blocks are sanitized (class/id kept) and emitted with no wrapper element."
+ }
+]

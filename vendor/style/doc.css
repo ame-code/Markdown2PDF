@@ -1,0 +1,614 @@
+/* vendor/style/doc.css — 文档骨架、排版与打印规则
+ *
+ * 本文件由 tools/build-css.mjs 从「打印 DOM 必需规则清单」生成：
+ * 对四份样例文档（features / toc / large / fence）实测每条选择器的命中数，
+ * 只保留真正参与打印输出的 74 条（原样式表共 197 条，其余为屏幕态或无效规则）。
+ * 选择器名称沿用 Typora 导出的 DOM 类名（这是 DOM 契约，不能改），
+ * 声明的书写顺序保持原样（CSS 简写/长写顺序会改变计算值，像素级复刻要求一致）。
+ * 组织方式、分节、注释为本项目自有。
+ */
+
+/* ==========================================================================
+ * 盒模型与根元素
+ * ========================================================================== */
+
+:root {
+  --bg-color: #ffffff;
+  --text-color: #333333;
+  --select-text-bg-color: #B5D6FC;
+  --select-text-font-color: auto;
+  --monospace: "Lucida Console",Consolas,"Courier",monospace;
+  --title-bar-height: 20px;
+}
+
+html {
+  font-size: 14px;
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ==========================================================================
+ * 排版：标题
+ * ========================================================================== */
+
+h1,
+h2,
+h3,
+h4,
+h5 {
+  white-space: pre-wrap;
+}
+
+/* ==========================================================================
+ * 盒模型与根元素
+ * ========================================================================== */
+
+body {
+  margin: 0px;
+  padding: 0px;
+  height: auto;
+  inset: 0px;
+  font-size: 1rem;
+  line-height: 1.42857;
+  overflow-x: hidden;
+  background: inherit;
+}
+
+/* ==========================================================================
+ * 文档骨架
+ * ========================================================================== */
+
+#write {
+  margin: 0px auto;
+  height: auto;
+  width: inherit;
+  word-break: normal;
+  overflow-wrap: break-word;
+  position: relative;
+  white-space: normal;
+  overflow-x: visible;
+  padding-top: 36px;
+}
+
+/* ==========================================================================
+ * 盒模型与根元素
+ * ========================================================================== */
+
+body.typora-export {
+  padding-left: 30px;
+  padding-right: 30px;
+}
+
+/* ==========================================================================
+ * 排版：正文与行内
+ * ========================================================================== */
+
+.typora-export .footnote-line,
+.typora-export li,
+.typora-export p {
+  white-space: pre-wrap;
+}
+
+/* ==========================================================================
+ * 排版：列表
+ * ========================================================================== */
+
+.typora-export .task-list-item input {
+  pointer-events: none;
+}
+
+/* ==========================================================================
+ * 文档骨架
+ * ========================================================================== */
+
+#write ol,
+#write ul {
+  position: relative;
+}
+
+/* ==========================================================================
+ * 排版：正文与行内
+ * ========================================================================== */
+
+img {
+  max-width: 100%;
+  vertical-align: middle;
+  image-orientation: from-image;
+}
+
+/* ==========================================================================
+ * 表单控件
+ * ========================================================================== */
+
+button,
+input,
+select,
+textarea {
+  color: inherit;
+  font: inherit;
+}
+
+input[type="checkbox"],
+input[type="radio"] {
+  line-height: normal;
+  padding: 0px;
+}
+
+/* ==========================================================================
+ * 盒模型与根元素
+ * ========================================================================== */
+
+*,
+::after,
+::before {
+  box-sizing: border-box;
+}
+
+/* ==========================================================================
+ * 排版：标题
+ * ========================================================================== */
+
+#write h1,
+#write h2,
+#write h3,
+#write h4,
+#write h5,
+#write h6,
+#write p,
+#write pre {
+  width: inherit;
+}
+
+#write h1,
+#write h2,
+#write h3,
+#write h4,
+#write h5,
+#write h6,
+#write p {
+  position: relative;
+}
+
+/* ==========================================================================
+ * 排版：正文与行内
+ * ========================================================================== */
+
+p {
+  line-height: inherit;
+}
+
+/* ==========================================================================
+ * 排版：标题
+ * ========================================================================== */
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  break-after: avoid-page;
+  break-inside: avoid;
+  orphans: 4;
+}
+
+/* ==========================================================================
+ * 排版：正文与行内
+ * ========================================================================== */
+
+p {
+  orphans: 4;
+}
+
+/* ==========================================================================
+ * 排版：标题
+ * ========================================================================== */
+
+h1 {
+  font-size: 2rem;
+}
+
+h2 {
+  font-size: 1.8rem;
+}
+
+h3 {
+  font-size: 1.6rem;
+}
+
+h4 {
+  font-size: 1.4rem;
+}
+
+h5 {
+  font-size: 1.2rem;
+}
+
+h6 {
+  font-size: 1rem;
+}
+
+.md-math-block,
+.md-rawblock,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+
+/* ==========================================================================
+ * 排版：正文与行内
+ * ========================================================================== */
+
+a {
+  cursor: pointer;
+}
+
+/* ==========================================================================
+ * 脚注与导出细节
+ * ========================================================================== */
+
+sup.md-footnote {
+  padding: 2px 4px;
+  background-color: rgba(238, 238, 238, 0.7);
+  color: rgb(85, 85, 85);
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+sup.md-footnote a,
+sup.md-footnote a:hover {
+  color: inherit;
+  text-transform: inherit;
+  text-decoration: inherit;
+}
+
+/* ==========================================================================
+ * 文档骨架
+ * ========================================================================== */
+
+#write input[type="checkbox"] {
+  cursor: pointer;
+  width: inherit;
+  height: inherit;
+}
+
+/* ==========================================================================
+ * 排版：表格
+ * ========================================================================== */
+
+figure {
+  overflow-x: auto;
+  margin: 1.2em 0px;
+  max-width: calc(100% + 16px);
+  padding: 0px;
+}
+
+figure > table {
+  margin: 0px;
+}
+
+thead,
+tr {
+  break-inside: avoid;
+  break-after: auto;
+}
+
+thead {
+  display: table-header-group;
+}
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0px;
+  width: 100%;
+  overflow: auto;
+  break-inside: auto;
+  text-align: left;
+}
+
+/* ==========================================================================
+ * 其他
+ * ========================================================================== */
+
+.CodeMirror-gutters {
+  border-right: 0px;
+  background-color: inherit;
+}
+
+.CodeMirror {
+  text-align: left;
+}
+
+.CodeMirror pre {
+  padding: 0px 4px;
+}
+
+.CodeMirror-lines {
+  padding: 0px;
+}
+
+/* ==========================================================================
+ * 文档骨架
+ * ========================================================================== */
+
+#write pre {
+  white-space: pre-wrap;
+}
+
+#write pre.ty-contain-cm {
+  white-space: normal;
+}
+
+/* ==========================================================================
+ * 其他
+ * ========================================================================== */
+
+.CodeMirror-gutters {
+  margin-right: 4px;
+}
+
+.md-fences {
+  font-size: 0.9rem;
+  display: block;
+  break-inside: avoid;
+  text-align: left;
+  overflow: visible;
+  white-space: pre;
+  background: inherit;
+  position: relative !important;
+}
+
+.CodeMirror-line,
+twitterwidget {
+  break-inside: avoid;
+}
+
+svg {
+  break-inside: avoid;
+}
+
+/* ==========================================================================
+ * 排版：正文与行内
+ * ========================================================================== */
+
+blockquote {
+  margin: 1rem 0px;
+}
+
+li .mathjax-block,
+li p {
+  margin: 0.5rem 0px;
+}
+
+/* ==========================================================================
+ * 排版：列表
+ * ========================================================================== */
+
+li {
+  margin: 0px;
+  position: relative;
+}
+
+/* ==========================================================================
+ * 排版：正文与行内
+ * ========================================================================== */
+
+blockquote > :last-child {
+  margin-bottom: 0px;
+}
+
+blockquote > :first-child,
+li > :first-child {
+  margin-top: 0px;
+}
+
+/* ==========================================================================
+ * 脚注与导出细节
+ * ========================================================================== */
+
+.footnotes-area {
+  color: rgb(136, 136, 136);
+  margin-top: 0.714rem;
+  padding-bottom: 0.143rem;
+  white-space: normal;
+}
+
+#write .footnote-line {
+  white-space: pre-wrap;
+}
+
+.footnote-line {
+  margin-top: 0.714em;
+  font-size: 0.7em;
+}
+
+/* ==========================================================================
+ * 排版：正文与行内
+ * ========================================================================== */
+
+p > .md-image:only-child:not(.md-img-error) img,
+p > img:only-child {
+  display: block;
+  margin: auto;
+}
+
+/* ==========================================================================
+ * 其他
+ * ========================================================================== */
+
+.md-math-block {
+  width: 100%;
+}
+
+/* ==========================================================================
+ * 排版：列表
+ * ========================================================================== */
+
+.md-task-list-item {
+  position: relative;
+  list-style-type: none;
+}
+
+.task-list-item.md-task-list-item {
+  padding-left: 0px;
+}
+
+.md-task-list-item > input {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  margin-left: -1.2em;
+  margin-top: calc(1em - 10px);
+  border: none;
+}
+
+/* ==========================================================================
+ * 其他
+ * ========================================================================== */
+
+.md-toc {
+  min-height: 3.58rem;
+  position: relative;
+  font-size: 0.9rem;
+  border-radius: 10px;
+}
+
+.md-toc-content {
+  position: relative;
+  margin-left: 0px;
+}
+
+.md-toc-item {
+  display: block;
+  color: rgb(65, 131, 196);
+}
+
+.md-toc-item a {
+  text-decoration: none;
+}
+
+.md-toc-inner {
+  display: inline-block;
+  cursor: pointer;
+}
+
+/* ==========================================================================
+ * 排版：标题
+ * ========================================================================== */
+
+.md-toc-h1 .md-toc-inner {
+  margin-left: 0px;
+  font-weight: 700;
+}
+
+.md-toc-h2 .md-toc-inner {
+  margin-left: 2em;
+}
+
+.md-toc-h3 .md-toc-inner {
+  margin-left: 4em;
+}
+
+.md-toc-h4 .md-toc-inner {
+  margin-left: 6em;
+}
+
+/* ==========================================================================
+ * 排版：正文与行内
+ * ========================================================================== */
+
+a.md-toc-inner {
+  font-size: inherit;
+  font-style: inherit;
+  font-weight: inherit;
+  line-height: inherit;
+}
+
+code,
+pre,
+samp,
+tt {
+  font-family: var(--monospace);
+}
+
+code {
+  text-align: left;
+  vertical-align: initial;
+}
+
+a.md-print-anchor {
+  white-space: pre !important;
+  border-width: initial !important;
+  border-style: none !important;
+  border-color: initial !important;
+  display: inline-block !important;
+  position: absolute !important;
+  width: 1px !important;
+  right: 0px !important;
+  outline: 0px !important;
+  background: 0px 0px !important;
+  text-decoration: initial !important;
+  text-shadow: initial !important;
+}
+
+/* ==========================================================================
+ * 排版：表格
+ * ========================================================================== */
+
+table tr th {
+  border-bottom: 0px;
+}
+
+/* ==========================================================================
+ * 其他
+ * ========================================================================== */
+
+mjx-container {
+  break-inside: avoid;
+}
+
+/* ==========================================================================
+ * 打印媒体  (6)
+ * ========================================================================== */
+
+@media print {
+  body,
+    html {
+      border: 1px solid transparent;
+      height: 99%;
+      break-after: avoid;
+      break-before: avoid;
+      font-variant-ligatures: no-common-ligatures;
+    }
+  #write {
+      margin-top: 0px;
+      border-color: transparent !important;
+      padding-top: 0px !important;
+      padding-bottom: 0px !important;
+    }
+  .typora-export * {
+      -webkit-print-color-adjust: exact;
+    }
+  .typora-export #write {
+      break-after: avoid;
+    }
+  figure {
+      overflow-x: visible;
+    }
+  .typora-export h1,
+    .typora-export h2,
+    .typora-export h3,
+    .typora-export h4,
+    .typora-export h5,
+    .typora-export h6 {
+      break-inside: avoid;
+    }
+}
