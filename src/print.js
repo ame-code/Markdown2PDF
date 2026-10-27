@@ -10,13 +10,42 @@
 // (a 28pt offset appears) and drops the values we need.
 import path from 'node:path';
 import fs from 'node:fs/promises';
+import { existsSync } from 'node:fs';
+import { fileURLToPath } from 'node:url';
 import puppeteer from 'puppeteer-core';
 import { PAPER } from './paper.js';
 
 export { PAPER };
 
-export const DEFAULT_CHROME =
-  'C:\\Users\\14578\\AppData\\Local\\ms-playwright\\chromium-1112\\chrome-win\\chrome.exe';
+const HERE = path.dirname(fileURLToPath(import.meta.url));
+export const PROJECT_ROOT = path.resolve(HERE, '..');
+
+/**
+ * Where Chromium 124 lives, in lookup order:
+ *   1. MDPDF_CHROME (explicit override, also used by --chrome)
+ *   2. runtime/chromium-124/chrome.exe inside this checkout — the trimmed copy
+ *      that `npm run bootstrap` downloads, so a fresh clone needs no manual step
+ *   3. the author's Playwright cache (kept so the dev machine keeps working)
+ *   4. whatever `chrome` resolves to on PATH
+ * The engine matters: Chromium 153 changes print-margin rounding *and* emits
+ * CJK fallback glyphs as Type3 procedures, so pixels stop matching Typora.
+ */
+function resolveChrome() {
+  if (process.env.MDPDF_CHROME) return process.env.MDPDF_CHROME;
+  const local = path.join(PROJECT_ROOT, 'runtime', 'chromium-124', 'chrome.exe');
+  if (existsSync(local)) return local;
+  const playwright = path.join(
+    process.env.LOCALAPPDATA || '',
+    'ms-playwright',
+    'chromium-1112',
+    'chrome-win',
+    'chrome.exe',
+  );
+  if (existsSync(playwright)) return playwright;
+  return 'chrome.exe';
+}
+
+export const DEFAULT_CHROME = resolveChrome();
 
 export async function launchBrowser({ executablePath = DEFAULT_CHROME, args = [] } = {}) {
   return puppeteer.launch({

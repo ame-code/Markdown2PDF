@@ -23,6 +23,7 @@
     "electron:build": "node bin/md2pdf.js golden/typora-export-test.md -o out/electron-acceptance.pdf --footer \"No. ${pageNo} / ${totalPages}\" --author 一苇",
     "electron:start": "electron .",
     "pack": "node tools/pack.mjs",
+    "bootstrap": "node tools/bootstrap.mjs",
     "verify:dist": "node tools/acceptance.mjs --out out/dist-p1.pdf && python tools/toc_check.py out/dist-p2.pdf"
   },
   "keywords": [],

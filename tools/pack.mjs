@@ -112,9 +112,23 @@ async function writeShortcut(appDir) {
   return link;
 }
 
+// Ship one versioned zip so a release asset has a stable, self-describing name.
+async function makeZip(appDir, zipPath) {
+  const { execFileSync } = await import('node:child_process');
+  const script = [
+    '$ErrorActionPreference = "Stop"',
+    'Add-Type -AssemblyName System.IO.Compression.FileSystem',
+    `if (Test-Path -LiteralPath ${psQuote(zipPath)}) { Remove-Item -LiteralPath ${psQuote(zipPath)} -Force }`,
+    `[System.IO.Compression.ZipFile]::CreateFromDirectory(${psQuote(appDir)}, ${psQuote(zipPath)}, [System.IO.Compression.CompressionLevel]::Optimal, $true)`,
+  ].join('; ');
+  execFileSync('powershell', ['-NoProfile', '-NonInteractive', '-Command', script], { stdio: 'pipe' });
+  return zipPath;
+}
+
 async function main() {
   const out = path.join(ROOT, 'dist');
   await fs.mkdir(out, { recursive: true });
+  const pkg = JSON.parse(await fs.readFile(path.join(ROOT, 'package.json'), 'utf8'));
 
   const ignore = [
     // only the app-relevant directories survive (node_modules is pruned below)
@@ -130,7 +144,7 @@ async function main() {
   const packOpts = {
     dir: ROOT,
     name: 'md2pdf',
-    appVersion: '1.0.0',
+    appVersion: pkg.version,
     platform: 'win32',
     arch: 'x64',
     out,
@@ -209,6 +223,17 @@ async function main() {
   }
 
   process.stdout.write(`drop dirs (must not be in the bundle): ${DROP_DIRS.join(', ')}\n`);
+
+  for (const p of paths) {
+    const st = await fs.stat(p);
+    if (!st.isDirectory()) continue;
+    const zipPath = path.join(out, `md2pdf-${pkg.version}-win32-x64.zip`);
+    await makeZip(p, zipPath);
+    const zipStat = await fs.stat(zipPath);
+    process.stdout.write(
+      `zip: ${path.relative(ROOT, zipPath)} (${(zipStat.size / 1048576).toFixed(1)} MB)\n`,
+    );
+  }
 }
 
 main().catch((e) => {

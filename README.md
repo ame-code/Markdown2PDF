@@ -13,6 +13,25 @@ node bin/md2pdf.js input.md -o out.pdf \
   --footer "No. ${pageNo} / ${totalPages}" --author "一苇"
 ```
 
+## 拉取仓库后先补文件
+
+`git clone` 只带走源码。`node_modules/`、`runtime/chromium-124/`（277 MB 的 Chromium 124）和 `dist/`
+都在 `.gitignore` 里，一条命令补齐：
+
+```bash
+npm run bootstrap                 # npm ci + 下载 Chromium 124（134 MB）并裁到 en-US / zh-CN 两个语言包
+npm test                          # 自检：围栏 / 公式 / DOM 一致性 + 与金标准 PDF 逐像素对比
+npm run bootstrap -- --check      # 只报告缺什么，不下载（缺文件时退出码 1）
+npm run bootstrap -- --force      # 两个步骤都重做
+```
+
+- Chromium 下载源是 Playwright 的 build 1112（`124.0.6367.29`）；Typora 1.9.5 内是 `124.0.6367.233`，
+  同属 124 分支，出图逐像素一致。装好后默认路径自动指向 `runtime/chromium-124/chrome.exe`。
+- 离线机器：`MDPDF_CHROMIUM_ZIP=<chromium-win64.zip> npm run bootstrap`；
+  打包同理 `MDPDF_ELECTRON_ZIP_DIR=<含 electron-v30.0.9-win32-x64.zip 的目录> npm run pack`。
+- 想用别的 Chromium：`--chrome <path>` 或环境变量 `MDPDF_CHROME`（必须是 124，见文末前提）。
+- 只想拿现成程序、不想装 Node：到 GitHub Releases 下载 `md2pdf-win32-x64.zip`，解压即用。
+
 ## 命令选项
 
 | 选项 | 说明 |
